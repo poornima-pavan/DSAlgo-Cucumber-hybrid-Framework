@@ -1,0 +1,13 @@
+pageFactory\HomePage.class
+stepDefinations\RegisterPageSteps.class
+pageFactory\SigninPage.class
+stepDefinations\HomePageSteps.class
+Driverfactory\DriverFactory.class
+pageFactory\RegisterPage.class
+utilities\ExcelReader.class
+stepDefinations\SigninPageSteps.class
+testRunner\TestRunner.class
+utilities\ConfigReader.class
+utilities\LoggerLoad.class
+hooks\Hooks.class
+utilities\TestUtill.class
