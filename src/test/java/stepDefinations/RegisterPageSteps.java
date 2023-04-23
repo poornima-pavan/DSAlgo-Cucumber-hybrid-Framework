@@ -1,5 +1,6 @@
 package stepDefinations;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -32,23 +33,23 @@ public class RegisterPageSteps {
 		registerPage.getRegisterPageurl();
 	}
 
-	@When("User enters username {string} ,{string} and {string}.")
-	public void user_enters_username_and(String username, String password, String password_confirmation,
-			io.cucumber.datatable.DataTable dataTable) {
-		registerPage.enterusername(username);
-		registerPage.enterpassword(password);
-		registerPage.enterconfirmationpassword(password_confirmation);
+	@When("User enters details.")
+	public void user_enters_details(DataTable dataTable) {
+		registerPage.enterusername(dataTable.cell(1, 0));
+		registerPage.enterpassword(dataTable.cell(1, 1));
+		registerPage.enterconfirmationpassword(dataTable.cell(1, 2));
+		registerPage.clickonregister();
 
 	}
 
 	@Then("clicks on register button and should land in homepage.")
-	public void clicks_on_register_button_and_should_land_in_homepage() {
-		registerPage.clickonregister();
+	public void clicks_on_register_button_and_should_land_in_homepage() throws InterruptedException {
+		Thread.sleep(1000);
 		String message = registerPage.GetPageTitle();
 		Assert.assertEquals("NumpyNinja", message);
 	}
 
-	@When("User enters partial  data {string} {string} {string}")
+	@When("User enters partial  data (.*) , (.*) and (.*)$")
 	public void user_enters_partial_data(String username, String password, String password_confirmation) {
 		registerPage.enterusername(username);
 		registerPage.enterpassword(password);
@@ -56,11 +57,11 @@ public class RegisterPageSteps {
 
 	}
 
-	@Then("It should display an error {string}")
-	public void it_should_display_an_error(String string) {
+	@Then("user should not be allowed to register.")
+	public void user_should_not_be_allowed_to_register() {
 		registerPage.clickonregister();
-		String message = registerPage.geterrormessage();
-		Assert.assertEquals("password_mismatch:The two password fields didn’t match.", message);
+		String message = registerPage.GetPageTitle();
+		Assert.assertEquals("Registration", message);
 	}
 
 }

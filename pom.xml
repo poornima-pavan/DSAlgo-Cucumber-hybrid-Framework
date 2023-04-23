@@ -119,6 +119,12 @@
 			<artifactId>cucumber-extentsreport</artifactId>
 			<version>3.1.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>5.7.5</version>
+		</dependency>
 
 
 	</dependencies>
@@ -145,6 +151,28 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.1</version>
 				</plugin>
+				<plugin>
+    <groupId>net.masterthought</groupId>
+    <artifactId>maven-cucumber-reporting</artifactId>
+    <version>3.0.0</version>
+
+    <executions>
+        <execution>
+            <id>execution</id>
+            <phase>test</phase>
+            <goals>
+                <goal>generate</goal>
+            </goals>
+            <configuration>
+                <projectName>DsAlgoProject</projectName>
+                <outputDirectory>${project.build.directory}cucumber-reports-html</outputDirectory>
+                <cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
+                <skippedFails>true</skippedFails>
+                <enableFlashCharts>false</enableFlashCharts>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>

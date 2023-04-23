@@ -56,8 +56,8 @@ public class ConfigReader {
 		return signinpageurl;
 	}
 	
-	public static String getExcelPageurl() {
-		String ExcelPageurl = properties.getProperty("ExcelPageurl");
-		return ExcelPageurl;
+	public static String getExcelPath() {
+		String ExcelPath = properties.getProperty("ExcelPath");
+		return ExcelPath;
 	}
 }

@@ -24,34 +24,62 @@ public class SigninPageSteps {
 	static String password;
 	static String message;
 	Boolean isRequired;
-
-
+	String path = "/Users/poorn/eclipse-workspace/DsAlgoProject/Testdata/loginexcel.xlsx";
+			
 	@Given("user is on sign in page.")
 	public void user_is_on_sign_in_page() {
 		signpage.getSigninPageurl();
 	}
 
-	@When("user enters {string} and {int}")
-	public void the_user_enter_sheet_and(String sheetname, Integer rownumber)
-			throws InvalidFormatException, IOException {
+//	@When("user enters {string} and {int}")
+//	public void user_enters_and(String String, Integer rownumber)
+//			throws InvalidFormatException, IOException {
+//		ExcelReader reader = new ExcelReader();
+//		//String path = signpage.getexcelpath();
+//		List<Map<String, String>> testdata = reader.getData("C:\\Users\\poorn\\eclipse-workspace\\DsAlgoProject\\Testdata\\loginexcel.xlsx", "Sheet1");
+//		String username = testdata.get(rownumber).get("username");
+//		String password = testdata.get(rownumber).get("password");
+//		String message = testdata.get(rownumber).get("expectedmessage");
+//		signpage.enterdetails(username, password, message);
+//		signpage.clickonloginbutton();
+////		if (username != null || password != null)
+////			signpage.Loginpage(username, password);
+////	}
+//	}
+	
+	@When("user enters {string} and  {int}")
+	public void user_enters_and(String SheetName, Integer rownumber) throws InvalidFormatException, IOException, InterruptedException {
 		ExcelReader reader = new ExcelReader();
-		List<Map<String, String>> testdata = reader.getData("C:\\Users\\poorn\\eclipse-workspace\\DsAlgoProject\\Testdata\\loginexcel.xlsx", sheetname);
-		username = testdata.get(rownumber).get("username");
-		password = testdata.get(rownumber).get("password");
-		message = testdata.get(rownumber).get("expectedmessage");
-
-		if (username != null || password != null)
-			signpage.Loginpage(username, password);
-	}
-
-	@Then("user user clicks on {string} button.")
-	public void user_user_clicks_on_button(String string) {
+		//String excelpath = signpage.getexcelpath();
+		List<Map<String, String>> testdata = reader.getData("C:/Users/poorn/eclipse-workspace/DsAlgoProject/Testdata/loginexcel.xlsx",SheetName);
+		String username = testdata.get(rownumber).get("username");
+		String password = testdata.get(rownumber).get("password");
+		String message = testdata.get(rownumber).get("expectedmessage");
+		signpage.enterdetails(username, password, message);
 		signpage.clickonloginbutton();
+		Thread.sleep(1000);
 	}
-	@Then("user clicks on {string} button.")
-	public void user_clicks_on_button(String string) {
-		signpage.clickonloginbutton();
+	@Then("user gets message {string}.")
+	public void user_gets_message(String string) throws InterruptedException {
+		//Thread.sleep(5000);
+		String Alertmessage = signpage.alertmsg();
+			Assert.assertEquals(string,Alertmessage);
+		//signpage.clickonloginbutton();
+		
 	}
+//	@Then("user gets message {string}")
+//	public void user_gets_message(String String) throws InterruptedException {
+//		
+//		Thread.sleep(2000);
+//		String Alertmessage = signpage.alertmsg();
+//		Assert.assertEquals(Alertmessage, String);
+//		
+//	}
+		
+//	@Then("user clicks on {string} button.")
+//	public void user_clicks_on_button(String string) {
+//		signpage.clickonloginbutton();
+//	}
 	
 	@When("user clicks on {string} link.")
 	public void user_clicks_on_link(String string) {
